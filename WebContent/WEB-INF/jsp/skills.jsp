@@ -24,7 +24,7 @@
 %>
 
 <h2>Add Skill</h2>
-	<form:form method="post" action="addSkill.html">
+	<form:form method="post" action="addSkill.html" commandName="newSkill">
 	 
         <form:label path="name">Skill Name</form:label>
         <form:input path="name" />

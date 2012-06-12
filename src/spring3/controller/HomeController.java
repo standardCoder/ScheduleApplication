@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import spring3.form.Employee;
 import spring3.form.FormShift;
@@ -29,8 +30,8 @@ public class HomeController {
 
 //	private ScheduleHandler scheduleHandler = new ScheduleHandler();
 	
-    @RequestMapping(value = "/employees.html", method = RequestMethod.POST)
-    public void addContact(@ModelAttribute("employee")
+    @RequestMapping(value = "employees/add", method = RequestMethod.POST)
+    public RedirectView addContact(@ModelAttribute("employee")
                             Employee employee, BindingResult result, HttpSession session) {
     	if(session.getAttribute("scheduleHandler") == null){
     		setupScheduleHandler(session);
@@ -38,26 +39,31 @@ public class HomeController {
     	ScheduleHandler scheduleHandler = (ScheduleHandler) session.getAttribute("scheduleHandler");
     	scheduleHandler.addEmployee(employee);
     	
+    	return new RedirectView("/employees.html", true);
     }
  
     @RequestMapping(value = "/addSkill", method = RequestMethod.POST)
-    public void addSkill(@ModelAttribute("skill")
+    public RedirectView addSkill(@ModelAttribute("skill")
                             FormSkill formSkill, BindingResult result, HttpSession session) {
     	if(session.getAttribute("scheduleHandler") == null){
     		setupScheduleHandler(session);
     	}
     	ScheduleHandler scheduleHandler = (ScheduleHandler) session.getAttribute("scheduleHandler");
     	scheduleHandler.addSkill(formSkill);
+    	
+    	return new RedirectView("/skills.html", true);
     }
 
     @RequestMapping(value = "/addShift", method = RequestMethod.POST)
-    public void addShift(@ModelAttribute("shift")
+    public RedirectView addShift(@ModelAttribute("shift")
     						FormShift formShift, BindingResult result, HttpSession session) {
     	if(session.getAttribute("scheduleHandler") == null){
     		setupScheduleHandler(session);
     	}
     	ScheduleHandler scheduleHandler = (ScheduleHandler) session.getAttribute("scheduleHandler");
     	scheduleHandler.addShift(formShift);
+    	
+    	return new RedirectView("/shifts.html", true);
     }
     
     @RequestMapping(value = "/solve")
@@ -148,21 +154,21 @@ public class HomeController {
     @RequestMapping("/employees")
     public ModelAndView viewEmployees() {
     	ModelAndView modelAndView = new ModelAndView("employees");
-    	modelAndView.addObject("test", new Employee());
+    	modelAndView.addObject("newEmployee", new Employee());
         return modelAndView;
     }
     
     @RequestMapping("/skills")
     public ModelAndView viewSkills(){
     	ModelAndView modelAndView = new ModelAndView("skills");
-    	modelAndView.addObject("command", new FormSkill());
+    	modelAndView.addObject("newSkill", new FormSkill());
     	return modelAndView;
     }
     
     @RequestMapping("/shifts")
     public ModelAndView viewShifts(){
     	ModelAndView modelAndView = new ModelAndView("shifts");
-    	modelAndView.addObject("command", new FormShift());
+    	modelAndView.addObject("newShift", new FormShift());
     	return modelAndView;
     }
     

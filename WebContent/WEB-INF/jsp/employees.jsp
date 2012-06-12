@@ -45,7 +45,7 @@ margin:10px 0 0 0;
 %>
 
 <h2>Add Employee</h2>
-	<form:form method="post" action="employees.html">
+	<form:form method="post" action="employees/add.html" commandName="newEmployee">
 	
 	    <form:label path="name">Name</form:label>
 		<form:input path="name" />

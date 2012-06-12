@@ -33,7 +33,7 @@
 </p>
 	<h2>Add Shift</h2>
 
-	<form:form method="post" action="addShift.html">
+	<form:form method="post" action="addShift.html" commandName="newShift">
 	 	
         <form:select path="day">
 			<form:option value="NONE" label="--- Day ---"/>
